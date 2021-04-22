@@ -1,0 +1,15 @@
+{
+	"autoload" : {
+		"psr-4" : {
+			"Combodo\\iTop\\Extension\\O365EmailSynchro\\" : "src"
+		}
+	},
+	"name" : "combodo/itop-o365-email-synchro",
+	"type" : "itop-extension",
+	"description" : "iTop/Office 365 eMail Synchro",
+	"require" : {
+	        "php" : ">=5.6",
+	        "thenetworg/oauth2-azure": "^2.0",
+	        "webklex/php-imap": "^2.5"
+	}
+}

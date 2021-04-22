@@ -1,0 +1,39 @@
+{# @copyright   Copyright (C) 2010-2020 Combodo SARL #}
+{# @license     http://opensource.org/licenses/AGPL-3.0 #}
+
+<h1><b>Step 1: Register the application in Azure AD</b></h1>
+<p>Create an Application in AAD to describe the rights required by iTop to connect to IMAP via an oAuth authorization scheme.</p>
+<div style="padding: 1rem;">
+<ol>
+<li>Connect to <a href="https://aad.portal.azure.com" target="_blank">Azure Active Directory Admin Center</a></li>
+<li>Click on <b>Azure Active Directory</b></li>
+<li>The click on <b>App Registration</b></li>
+<li>Create a new application by clikcing on <b>New registration</b> with:<br>
+A meaningful name (for example "IMAP Access for email synchronization with iTop")<br>
+For <b>Supported Account types</b>, select the first choice: "Accounts in this organizational directory only"<br>
+For the <b>Redirect URI</b>, select <b>Web</b> and enter: <input type="text" readonly size="90" value="{{ redirect_url }}"></input><br>
+The press <b>Register</b> to create the application.
+</li>
+<li>Create an client secret by clicking on <b>Certificates and secrets</b></li>
+<li>The click on <b>New client secret</b></li>
+<li>Carefully copy the value generated since you will not be able to retrieve it later</li>
+</ol>
+</div>
+<h1><b>Step 2: Configure the Office 365 Mailbox in iTop</b></h1>
+<p>Create a new Office 365 Mailbox in iTop and provide the needed information.</p>
+<div style="padding: 1rem;">
+<ol>
+<li>Fill-in the Office 365 login, and the following three fields from the application registered in the previous step: <b>Application (client) ID</b>, <b>Directory (tenant) ID</b> and <b>Client secret</b></li>
+<li>Fill in the remaining fields as appropriate to adjust the behavior of this Mailbox.</li>
+<li>Click on <b>Create</b> to create the object in iTop</li>
+</ol>
+</div>
+
+<h1><b>Step 3: validate the oAuth authorization</b></h1>
+<div style="padding: 1rem;">
+<ol>
+<li>From the newly created Office 365 Mailbox in iTop, click on the link next to <b>Authorization status</b></li>
+<li>You will be redirected to the Azure/Office365 login and prompted to validate the application access to IMAP.</li>
+<li>When this is done, check the tab <b>Mailbox Content</b> on the Office 365 mailbox, it will no show the mails from the Office 365 server.</li>
+</ol>
+</div>
