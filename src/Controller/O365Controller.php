@@ -12,11 +12,18 @@ use Exception;
 use IssueLog;
 use MetaModel;
 use utils;
+use Dict;
 
 class O365Controller extends Controller
 {
 	public function OperationDisplayConfiguration()
-	{	
-		$this->DisplayPage(array('redirect_url' => utils::GetAbsoluteUrlModulePage('itop-o365-email-synchro', 'authorize2.php')), 'configuration', 'setup');
+	{
+		$sTemplate = 'configuration';
+		if (Dict::GetUserLanguage() == 'FR FR')
+		{
+			// TODO : implement something generic with a fallback to English when the translated template does not exist...
+			$sTemplate = 'fr.configuration';
+		}
+		$this->DisplayPage(array('redirect_url' => utils::GetAbsoluteUrlModulePage('itop-o365-email-synchro', 'authorize2.php')), $sTemplate, 'setup');
 	}
 }

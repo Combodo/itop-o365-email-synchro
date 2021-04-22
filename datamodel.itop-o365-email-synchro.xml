@@ -243,20 +243,34 @@
        	{
        		$sHtml = '';
        		$sUrlAuth = utils::GetAbsoluteUrlModulePage('itop-o365-email-synchro', 'authorize.php', ['mailbox_id' => $this->GetKey()]);
-       		$sUrlInfo = utils::GetAbsoluteUrlModulePage('itop-o365-email-synchro', 'azure-config.php');
+       		$sUrlInfo = utils::GetAbsoluteUrlModulePage('itop-o365-email-synchro', 'index.php');
+       		if (class_exists('UIBlock'))
+       		{
+       			// iTop 3.0 styling
+       			$sFormatOk = '<div class="ibo-field-badge" style="background-color: var(--ibo-lifecycle-success-state-primary-color); color: var(--ibo-lifecycle-success-state-secondary-color)">%s</div>';
+       			$sFormatKO = '<div class="ibo-field-badge" style="background-color: var(--ibo-lifecycle-failure-state-primary-color); color: var(--ibo-lifecycle-failure-state-secondary-color)">%s</div>';
+       		}
+       		else
+       		{
+       			$sFormatOk = '<div style="background-color: #3B4; color: #EEE; padding: 3px; border-radius: 3px; display: inline-block;">%s</div>';
+       			$sFormatKO = '<div style="background-color: #B34; color: #EEE; padding: 3px; border-radius: 3px; display: inline-block;">%s</div>';
+       		}
+       		
        		if ($this->Get('azure_authorization') == 'ok')
        		{
-       			$sHtml = '<div><div class="ibo-field-badge" style="background-color: var(--ibo-lifecycle-success-state-primary-color); color: var(--ibo-lifecycle-success-state-secondary-color)">Ok</div> Click <a href="'.$sUrlAuth.'">here</a> to renew the authorization.</div>';
+       			$sBadge = sprintf($sFormatOk, Dict::S('O365:AzureAuthorization:Ok'));
+        		$sHtml = '<div>'.Dict::Format('O365:AzureAuthorization:ClickToRenew', $sBadge, $sUrlAuth).'</div>';
        		}
        		else if( ($this->Get('azure_client_id') == '') || ($this->Get('azure_tenant_id') == '') || ($this->Get('azure_secret') == ''))
        		{
        			// Incomplete setup, provide a link to more information
-       			$sHtml = '<div>Click <a target="_blank" href="'.$sUrlInfo.'">here</a> for information about the Azure configuration</div>';
+        		$sHtml = '<div>'.Dict::Format('O365:AzureAuthorization:ClickForMoreInfo', $sUrlInfo).'</div>';
        		}
        		else
        		{
        			// Link to init the authorization
-       			$sHtml = '<div><div class="ibo-field-badge" style="background-color: var(--ibo-lifecycle-failure-state-primary-color); color: var(--ibo-lifecycle-failure-state-secondary-color)">Not Authorized</div> Click <a href="'.$sUrlAuth.'">here</a> to complete the authorization process</div>';
+       			$sBadge = sprintf($sFormatKO, Dict::S('O365:AzureAuthorization:KO'));
+        		$sHtml = '<div>'.Dict::Format('O365:AzureAuthorization:ClickToInit', $sBadge, $sUrlAuth).'</div>';
        		}
        		return $sHtml;
        	}
@@ -308,7 +322,21 @@
 		$this->Set('protocol', 'imap');
 	}]]></code>
         </method>
-                <method id="GetEmailSource">
+         <method id="PrefillCreationForm">
+        <static>false</static>
+        <access>public</access>
+        <type>Overload-DBObject</type>
+        <code><![CDATA[
+        	public function PrefillCreationForm(&$aContextParam)
+        	{
+        		$this->Set('server', 'outlook.office365.com');
+        		$this->Set('mailbox', 'INBOX');
+        		return parent::PrefillCreationForm($aContextParam);
+        	}
+        ]]>
+        </code>
+        </method>
+        <method id="GetEmailSource">
           <comment>/**
 	 * Get an EmailSource instance initialized according to the MailInbox configuration
 	 * @throws Exception

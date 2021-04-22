@@ -8,14 +8,14 @@
 <li>Connect to <a href="https://aad.portal.azure.com" target="_blank">Azure Active Directory Admin Center</a></li>
 <li>Click on <b>Azure Active Directory</b></li>
 <li>The click on <b>App Registration</b></li>
-<li>Create a new application by clikcing on <b>New registration</b> with:<br>
+<li>Create a new application by clicking on <b>New registration</b> with:<br>
 A meaningful name (for example "IMAP Access for email synchronization with iTop")<br>
-For <b>Supported Account types</b>, select the first choice: "Accounts in this organizational directory only"<br>
-For the <b>Redirect URI</b>, select <b>Web</b> and enter: <input type="text" readonly size="90" value="{{ redirect_url }}"></input><br>
-The press <b>Register</b> to create the application.
+For <b>Supported Account types</b>, select the first choice: <b>Accounts in this organizational directory only</b><br>
+For the <b>Redirect URI</b>, select <b>Web</b> and enter the following value: <input type="text" readonly style="width:100%" value="{{ redirect_url }}"></input><br>
+Then press <b>Register</b> to create the application.
 </li>
 <li>Create an client secret by clicking on <b>Certificates and secrets</b></li>
-<li>The click on <b>New client secret</b></li>
+<li>Then click on <b>New client secret</b></li>
 <li>Carefully copy the value generated since you will not be able to retrieve it later</li>
 </ol>
 </div>

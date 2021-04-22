@@ -1,0 +1,39 @@
+{# @copyright   Copyright (C) 2010-2020 Combodo SARL #}
+{# @license     http://opensource.org/licenses/AGPL-3.0 #}
+
+<h1><b>Etape 1: Inscription de l'application dans Azure AD</b></h1>
+<p>Création d'une application dans Azure Active Directory pour décrire les droits d'accès demandés par iTop.</p>
+<div style="padding: 1rem;">
+<ol>
+<li>Connectez vous à <a href="https://aad.portal.azure.com" target="_blank">Azure Active Directory Admin Center</a></li>
+<li>Cliquez sur <b>Azure Active Directory</b></li>
+<li>Puis cliquez sur <b>Inscription d'applications</b></li>
+<li>Créez une nouvelle application en cliquant sur <b>Nouvelle inscription</b> avec les choix suivants:<br>
+Un nom significatif (par exemple "Accès à IMAP pour la synchro des mails avec iTop")<br>
+Pour <b>Types de comptes pris en charge</b>, sélectionnez le premier choix: <b>Comptes dans cet annuaire d'organisation uniquement</b><br>
+Pour <b>URI de redirection</b>, sélectionnez <b>Web</b> et copiez la valeur suivante: <input type="text" readonly style="width:100%" value="{{ redirect_url }}"></input><br>
+Et finalement cliquez sur <b>S'inscrire</b> pour enregistrer l'application.
+</li>
+<li>Créer un nouveau secret client and cliquant sur <b>Certificats &amp; secrets</b></li>
+<li>Ensuite cliquez sur <b>Nouveau secret client</b></li>
+<li>Notez préciseument la valeur générée car vous ne pourrez pas la retrouver ultérieurement.</li>
+</ol>
+</div>
+<h1><b>Etape 2: Configurez la boîte mail Office 365 dans iTop</b></h1>
+<p>Créer une nouvelle Boîte Mail Office 365 dans iTop et saisissez les informations nécessaires.</p>
+<div style="padding: 1rem;">
+<ol>
+<li>Remplissez le champ Identifiant, et les trois champs suivants issus de l'application inscrite dans Azuer AD: <b>ID d'application (client)</b>, <b>ID de l'annuaire (locataire)</b> and <b>Secret client</b></li>
+<li>Remplissez aussi les autres champs pour ajuster le comportement de cette boîte mail.</li>
+<li>Cliquez sur <b>Créer</b> pour créer l'objet dans iTop.</li>
+</ol>
+</div>
+
+<h1><b>Etape 3: validez l'autorisation oAuth</b></h1>
+<div style="padding: 1rem;">
+<ol>
+<li>Depuis le nouvel objet Boîte Mail Office 365 dans iTop, cliquez sur le lien dans le champ <b>Etat d'Autorisation</b></li>
+<li>Ceci vous redirige vers Azure/Office 365, vous demande de vous identifier et de valider les autorisations d'accès à IMAP.</li>
+<li>Une fois ces écrans complètés, vous serez redirigé automatiquement sur la page de la boîte mail dans iTop, et l'onglet <b>Contenu de la boîte mail</b> affichera les mails du serveur Office 365.</li>
+</ol>
+</div>
